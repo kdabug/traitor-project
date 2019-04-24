@@ -1,0 +1,591 @@
+/* FONTS
+
+font-family: 'IM Fell English SC', serif;
+font-family: 'IM Fell English', serif;
+font-family: 'Inconsolata', monospace; */
+
+body {
+  margin: 0;
+  padding: 0;
+  /*  Background fallback in case of IE8 & down, or in case video doens't load, such as with slower connections  */
+  background: rgba(247, 224, 177, 0.9);
+  font-family: "IM Fell English", serif;
+}
+/* .MuiPaper-root-55 {
+  background-color: lightgrey;
+} */
+
+nav {
+  background-color: rgba(247, 224, 177, 0.9);
+  display: flex;
+  top: 0px;
+  width: 100vw;
+  position: fixed;
+  align-content: center;
+  justify-content: space-around;
+  order: 1;
+  z-index: 3;
+  text-decoration: none;
+  background-color: white;
+  font-family: "IM Fell English", serif;
+}
+/* .nav-bar {
+  background-color: transparent;
+  width: 170px;
+}
+
+.nav-button {
+  justify-content: left;
+  font-family: "IM Fell English", serif;
+}
+
+.nav-items {
+  color: rgba(85, 72, 46, 1);
+} */
+nav a {
+  padding: 10px;
+  margin: 10px 10px 10px 10px;
+  display: flex;
+  justify-content: space-around;
+  font-size: 26px;
+  border-radius: 20px;
+  align-content: center;
+  align-items: center;
+  text-decoration: none;
+  order: 1;
+  font-family: "IM Fell English", serif;
+  color: rgba(85, 72, 46, 1);
+}
+/* .nav-button button {
+  font-family: "IM Fell English", serif;
+}
+.MuiButton-root-3 {
+  font-family: "IM Fell English", serif;
+} */
+
+.layer {
+  background: linear-gradient(
+    320deg,
+    rgba(245, 28, 3, 0.9),
+    rgba(15, 13, 13, 0.9)
+  );
+  order: -1;
+  background-size: 400% 400%;
+  -webkit-animation: shimmer 4s alternate ease infinite;
+  -moz-animation: shimmer 4s alternate ease infinite;
+  animation: shimmer 4s alternate ease infinite;
+}
+@-webkit-keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@-moz-keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+@keyframes shimmer {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+/* idea and code snippets of above shimmer from https://codepen.io/LaunaKay/pen/xVGxrW */
+
+.welcome-container {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-size: cover;
+  /* background-position-x: 25vw; */
+  background-image: url("./images/calico-jack.png");
+  align-content: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.welcome-script {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+}
+.welcome-button {
+  cursor: pointer;
+  background-color: rgba(85, 72, 46, 0.6);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  border-radius: 15px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-family: "Inconsolata", monospace;
+  position: relative;
+  bottom: -50px;
+}
+
+.welcome-button:hover {
+  border: 1px solid red;
+  transform: scale(0.95);
+  transition: transform 0.2s;
+}
+
+.title {
+  color: rgba(247, 224, 177, 0.9);
+  font-family: "IM Fell English SC", serif;
+  font-size: 90px;
+  line-height: 85px;
+}
+
+.subtitle {
+  font-family: "IM Fell English", serif;
+  color: rgba(202, 178, 130, 0.9);
+}
+
+#chest {
+  background-image: url("./images/chest.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  content: "";
+  z-index: 3;
+}
+
+#compass {
+  background-image: url("./images/compass.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  content: "";
+  z-index: 3;
+}
+
+#anchor {
+  background-image: url("./images/Anchor_pictogram_svg.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  content: "";
+  z-index: 3;
+}
+
+#flag {
+  background-image: url("./images/pirateflagsvg.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 40px;
+  width: 40px;
+  content: "";
+  z-index: 3;
+}
+#hover {
+  font-family: "IM Fell English SC", serif;
+  display: none;
+}
+
+.page-titles {
+  margin: 0;
+  margin-top: 10px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  flex-direction: column;
+  position: relative;
+}
+
+.chest-container {
+  margin: 60px 0px 0px 0px;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  /* justify-content: center; */
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  /* position: relative; */
+}
+.chest-container::after {
+  background-image: url("./images/chest.svg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 60px;
+  content: "";
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.chest-currents-display {
+  background: rgba(236, 228, 204, 0.849);
+  border-radius: 20px;
+  padding: 20px;
+  width: 50%;
+}
+
+.inventory-list {
+  list-style-type: none;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.plank-container {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100%;
+  height: auto;
+  flex-direction: column;
+  position: relative;
+  margin-top: 60px;
+}
+.plank-container::after {
+  background-image: url("./images/man-in-stocks-illustration.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  width: 100vw;
+  height: 100vh;
+  content: "";
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+.plank h1 {
+  font-size: 30px;
+}
+.plank h2 {
+  font-size: 20px;
+}
+
+.list-selector {
+  border: 2px solid red;
+  font-size: 16px;
+  height: 26px;
+  width: auto;
+  border-radius: 20px;
+}
+
+.stock-detail {
+  display: flex;
+  flex-direction: column;
+}
+.logo {
+  height: 200px;
+  width: auto;
+  margin: 10px;
+  justify-self: center;
+  align-self: center;
+}
+.stock-detail-info {
+  text-align: left;
+  justify-self: center;
+  align-self: center;
+  background-color: rgba(227, 154, 154, 0.797);
+  padding: 0px 10px 0px 10px;
+  height: auto;
+}
+.stock-price-info {
+  width: 100%;
+  background: rgba(250, 250, 250, 0.6);
+  font-family: "Inconsolata", monospace;
+  margin: 20px 0px 10px 0px;
+  font-size: 16px;
+  font-weight: bold;
+}
+.head-stock-detail-container {
+  display: flex;
+  flex-direction: row;
+  width: 90%;
+}
+
+.show-details-button {
+  background-color: rgba(227, 154, 154, 0.797);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  border-radius: 15px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  height: 60px;
+  font-family: "Inconsolata", monospace;
+  margin: 10px;
+}
+.show-details-button:hover {
+  border: 2px red solid;
+}
+.stock-buttons {
+  display: flex;
+  flex-direction: row;
+  margin: 10px;
+}
+
+.stock-list {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  font-family: "Inconsolata", monospace;
+}
+.cards-container {
+  margin: 5px;
+  background-color: rgba(228, 207, 150, 0.797);
+  border-radius: 20px;
+}
+
+.cards-container:hover {
+  border: 1px solid red;
+  transform: scale(0.95);
+  transition: transform 0.2s;
+  background-color: rgba(236, 228, 204, 0.849);
+}
+
+.cards-container h1 {
+  font-size: 25px;
+}
+.cards-container h2 {
+  font-size: 20px;
+}
+.high-price {
+  color: green;
+}
+.low-price {
+  color: red;
+}
+.cards-buttons-container {
+  margin: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: flex-end;
+  align-self: flex-end;
+}
+
+.card-button {
+  background-color: rgba(227, 154, 154, 0.797);
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  border-radius: 15px;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 20px;
+  font-family: "Inconsolata", monospace;
+}
+.card-button:hover {
+  border: 2px red solid;
+}
+
+.compass-container {
+  margin-top: 75px;
+  padding: 0;
+  display: flex;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  position: relative;
+  background: linear-gradient(to top, #accbee 0%, #e7f0fd 100%);
+}
+.wrapper {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 5px;
+  background-image: rgba(247, 224, 177, 0.9);
+  overflow: hidden;
+}
+
+.wave {
+  width: 150%;
+  height: 160%;
+  position: absolute;
+  top: -20%;
+  left: 30%;
+  margin-left: -600px;
+  margin-top: -500px;
+  border-radius: 35%;
+  background: rgba(247, 224, 177, 0.9);
+  animation: wave 15s infinite linear;
+  z-index: -3;
+}
+
+@keyframes wave {
+  from {
+    transform: rotate(0deg);
+  }
+  from {
+    transform: rotate(360deg);
+  }
+}
+.chart-container {
+  display: flex;
+  margin-top: 20px;
+  align-items: center;
+  justify-content: center;
+  height: auto;
+  width: 100vw;
+  z-index: 1;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-content: center;
+  background: rgba(227, 154, 154, 0.797);
+  padding: 5px;
+}
+
+.form-query {
+  width: 90%;
+  border: red solid 2px;
+  margin: 5px;
+  padding: 10px;
+  align-self: center;
+  z-index: 5;
+  font-family: "Inconsolata", monospace;
+}
+
+#query-search-form {
+  width: 100%;
+}
+
+input.search-box {
+  margin: 10px;
+  width: 50%;
+  height: 26px;
+}
+.search-btn {
+  color: red;
+  background-color: rgba(245, 237, 237, 0.61);
+  border-radius: 20px;
+  width: auto;
+}
+.search-btn:hover {
+  color: red;
+  background-color: rgba(245, 237, 237, 0.61);
+  border-radius: 20px;
+  width: auto;
+  border: red 2px solid;
+}
+.options-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  z-index: 2;
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  background: rgba(227, 154, 154, 0.797);
+}
+
+.options {
+  color: black;
+  z-index: 2;
+  list-style-type: none;
+  font-size: 20px;
+  margin: 0;
+  padding: 0;
+}
+
+.no-options {
+  color: black;
+  width: 40px;
+}
+
+.footer a {
+  text-align: center;
+  bottom: 0px;
+  text-decoration: none;
+  font-family: "Inconsolata", monospace;
+  background-color: rgba(85, 72, 46, 1);
+  color: rgba(247, 224, 177, 0.9);
+  display: flex;
+  position: fixed;
+  width: 100%;
+  height: 20px;
+  align-content: space-around;
+  justify-content: center;
+  order: 1;
+  text-decoration: none;
+}
+
+.stock-detail {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: 100vw;
+  height: 100vh;
+  flex-direction: column;
+  position: relative;
+}
+.stock-detail::after {
+  background-image: url("./images/pillory.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  margin-top: 60px;
+  content: "";
+  opacity: 0.3;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;
+}
+
+li#list-els:nth-of-type(1n + 15) {
+  display: none;
+}
