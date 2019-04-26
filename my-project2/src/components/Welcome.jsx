@@ -16,7 +16,7 @@ const Welcome = props => {
           </h2>
           <button
             className="welcome-button"
-            onClick={() => props.history.push("/chest")}
+            onClick={() => props.history.push("/plank")}
           >
             Start Trading
           </button>
