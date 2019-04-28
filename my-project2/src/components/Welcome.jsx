@@ -10,7 +10,7 @@ const Welcome = props => {
           <h2 className="subtitle">
             be ye warned:
             <br /> we send pirates, <br />
-            theives &<br /> <span className="title">traitors</span>
+            thieves &<br /> <span className="title">traitors</span>
             <br />
             to the stocks.
           </h2>
