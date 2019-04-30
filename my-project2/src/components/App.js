@@ -19,7 +19,7 @@ import Profile from "./Profile";
 import Records from "./Records";
 import StockDetails from "./StockDetail";
 import Compass from "./Compass";
-
+import { connect } from "react-redux";
 class App extends Component {
   constructor() {
     super();
@@ -357,5 +357,7 @@ class App extends Component {
     );
   }
 }
-
-export default withRouter(App);
+const mapStateToProps = state => {
+  return { state };
+};
+export default withRouter(connect(mapStateToProps)(App));
