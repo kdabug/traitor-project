@@ -7,6 +7,7 @@ import { Route, Link, withRouter } from "react-router-dom"; //import Tooltip fro
 
 import ReactChartkick, { LineChart, PieChart } from "react-chartkick";
 import Chart from "chart.js";
+import { connect } from "react-redux";
 
 ReactChartkick.addAdapter(Chart);
 class Compass extends Component {
@@ -60,6 +61,17 @@ class Compass extends Component {
     console.log("chartData", chartData);
   }
 
+  handleFormSubmit(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    // this.props.dispatch(appUpdateNameAndValue(name, value))
+    const { userInput, stockInfo } = this.props.appReducer;
+    const tickerIndex = getTickerIndex(stockInfo, userInput);
+    this.props.dispatch(compassUpdateTickerSymbol(tickerIndex));
+    // this.props.dispatch(appResetUserInput());
+    this.props.history.push(`/compass/${this.props.appReducer.newTicker}`);
+  }
+
   render() {
     console.log("COMPASS PROPS: ", this.props);
     const lineChart = (
@@ -97,7 +109,7 @@ class Compass extends Component {
           filteredOptions={this.props.filteredOptions}
           activeOption={this.props.activeOption}
           onClick={this.props.onClick}
-          onSubmit={this.props.onCompassSubmit}
+          onSubmit={this.handleFormSubmit}
           ticker={this.props.ticker}
         />
         <div className="chart-container">{lineChart}</div>
@@ -105,5 +117,5 @@ class Compass extends Component {
     );
   }
 }
-
-export default withRouter(Compass);
+const mapStateToProps = state => ({ state });
+export default withRouter(connect(mapStateToProps)(Compass));

@@ -20,6 +20,8 @@ import Records from "./Records";
 import StockDetails from "./StockDetail";
 import Compass from "./Compass";
 import { connect } from "react-redux";
+import { appInitialDataFetch } from "../actions";
+import { getTickerIndex } from "../utilities";
 class App extends Component {
   constructor() {
     super();
@@ -58,7 +60,6 @@ class App extends Component {
     this.fetchSpecificTickerInfo = this.fetchSpecificTickerInfo.bind(this);
     this.handleDetailSubmit = this.handleDetailSubmit.bind(this);
     this.handleCompassSubmit = this.handleCompassSubmit.bind(this);
-    this.fetchStocks = this.fetchStocks.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleQueryClick = this.handleQueryClick.bind(this);
     this.handleQueryKeyDown = this.handleQueryKeyDown.bind(this);
@@ -232,13 +233,10 @@ class App extends Component {
     this.setState((prevState, newState) => ({
       [name]: value
     }));
+
     const { userInput, stockInfo } = this.state;
-    const tickerIndex = stockInfo.filter(
-      stock =>
-        stock.name.toLowerCase() === userInput.toLowerCase() ||
-        stock.symbol.toLowerCase() === userInput.toLowerCase()
-    );
-    const newTicker = tickerIndex[0].symbol;
+    const tickerIndex = getTickerIndex(stockInfo, userInput);
+    this.props.dispatch(compassUpdateTickerSymbol(tickerIndex));
     this.setState((prevState, newState) => ({
       ticker: newTicker,
       userInput: ""
@@ -247,20 +245,7 @@ class App extends Component {
   }
 
   async componentDidMount() {
-    this.fetchStocks();
-  }
-
-  async fetchStocks() {
-    const stockInfo = await fetchStockSymbols();
-    const tickerSymbols = stockInfo.map(stock => stock.symbol);
-    const companyNames = stockInfo.map(stock => stock.name);
-    const newList = await fetchStockLists(this.state.listSelect);
-    this.setState((prevState, newState) => ({
-      stockInfo: stockInfo,
-      autocompleteOptions: [...tickerSymbols, ...companyNames],
-      formQuery: "",
-      stockList: newList
-    }));
+    this.props.dispatch(appInitialDataFetch());
   }
 
   render() {
@@ -358,6 +343,7 @@ class App extends Component {
   }
 }
 const mapStateToProps = state => {
+  console.log("MAP STATE TO PROPS - STATE: ", state);
   return { state };
 };
 export default withRouter(connect(mapStateToProps)(App));

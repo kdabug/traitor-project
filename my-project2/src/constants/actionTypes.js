@@ -1,0 +1,10 @@
+// example
+//src/js/constants/action-types.js
+
+// APP ACTION TYPES
+export const APP_INITIAL_DATA_FETCH = "APP_INITIAL_DATA_FETCH";
+
+// PLANK ACTION TYPES
+
+// COMPASS ACTION TYPES
+export const COMPASS_UPDATE_TICKER = "COMPASS_UPDATE_TICKER";
