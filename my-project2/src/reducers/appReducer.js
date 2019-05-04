@@ -1,4 +1,9 @@
-import { APP_INITIAL_DATA_FETCH } from "../constants/actionTypes";
+import {
+  APP_INITIAL_DATA_FETCH,
+  APP_RESET_USER_INPUT,
+  APP_UPDATE_NAME_AND_VALUE,
+  COMPASS_UPDATE_TICKER
+} from "../constants/actionTypes";
 
 const initialState = {
   ticker: "",
@@ -36,6 +41,15 @@ function appReducer(state = initialState, action) {
   console.log("APP REDUCER STATE: ", state);
   switch (action.type) {
     case APP_INITIAL_DATA_FETCH: {
+      state = { ...state, ...action.payload };
+    }
+    case APP_RESET_USER_INPUT: {
+      state = { ...state, ...action.payload };
+    }
+    case APP_UPDATE_NAME_AND_VALUE: {
+      state = { ...state, ...action.payload };
+    }
+    case COMPASS_UPDATE_TICKER: {
       state = { ...state, ...action.payload };
     }
   }

@@ -59,7 +59,7 @@ class App extends Component {
     this.handleListChange = this.handleListChange.bind(this);
     this.fetchSpecificTickerInfo = this.fetchSpecificTickerInfo.bind(this);
     this.handleDetailSubmit = this.handleDetailSubmit.bind(this);
-    this.handleCompassSubmit = this.handleCompassSubmit.bind(this);
+    // this.handleCompassSubmit = this.handleCompassSubmit.bind(this);
     this.handleQueryChange = this.handleQueryChange.bind(this);
     this.handleQueryClick = this.handleQueryClick.bind(this);
     this.handleQueryKeyDown = this.handleQueryKeyDown.bind(this);
@@ -226,23 +226,23 @@ class App extends Component {
     this.props.history.push(`/chest/${newTicker}`);
   }
 
-  handleCompassSubmit(e) {
-    e.preventDefault();
-    const { name, value } = e.target;
-    console.log("target", name);
-    this.setState((prevState, newState) => ({
-      [name]: value
-    }));
+  // handleCompassSubmit(e) {
+  //   e.preventDefault();
+  //   const { name, value } = e.target;
+  //   console.log("target", name);
+  //   this.setState((prevState, newState) => ({
+  //     [name]: value
+  //   }));
 
-    const { userInput, stockInfo } = this.state;
-    const tickerIndex = getTickerIndex(stockInfo, userInput);
-    this.props.dispatch(compassUpdateTickerSymbol(tickerIndex));
-    this.setState((prevState, newState) => ({
-      ticker: newTicker,
-      userInput: ""
-    }));
-    this.props.history.push(`/compass/${newTicker}`);
-  }
+  //   const { userInput, stockInfo } = this.state;
+  //   const tickerIndex = getTickerIndex(stockInfo, userInput);
+  //   this.props.dispatch(compassUpdateTickerSymbol());
+  //   this.setState((prevState, newState) => ({
+  //     ticker: newTicker,
+  //     userInput: ""
+  //   }));
+  //   this.props.history.push(`/compass/${newTicker}`);
+  // }
 
   async componentDidMount() {
     this.props.dispatch(appInitialDataFetch());

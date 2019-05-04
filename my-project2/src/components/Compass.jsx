@@ -8,6 +8,7 @@ import { Route, Link, withRouter } from "react-router-dom"; //import Tooltip fro
 import ReactChartkick, { LineChart, PieChart } from "react-chartkick";
 import Chart from "chart.js";
 import { connect } from "react-redux";
+import { appUpdateNameAndValue, compassUpdateTickerSymbol } from "../actions";
 
 ReactChartkick.addAdapter(Chart);
 class Compass extends Component {
@@ -21,6 +22,7 @@ class Compass extends Component {
     this.compileChartData = this.compileChartData.bind(this);
     this.fetchHistoryData = this.fetchHistoryData.bind(this);
     this.createTickerVal = this.createTickerVal.bind(this);
+    this.handleFormSubmit = this.handleFormSubmit.bind(this);
   }
   createTickerVal() {
     const path = this.props.location.pathname.split("/")[2];
@@ -64,12 +66,9 @@ class Compass extends Component {
   handleFormSubmit(e) {
     e.preventDefault();
     const { name, value } = e.target;
-    // this.props.dispatch(appUpdateNameAndValue(name, value))
-    const { userInput, stockInfo } = this.props.appReducer;
-    const tickerIndex = getTickerIndex(stockInfo, userInput);
-    this.props.dispatch(compassUpdateTickerSymbol(tickerIndex));
-    // this.props.dispatch(appResetUserInput());
-    this.props.history.push(`/compass/${this.props.appReducer.newTicker}`);
+    this.props.dispatch(appUpdateNameAndValue(name, value));
+    this.props.dispatch(compassUpdateTickerSymbol());
+    this.props.history.push(`/compass/${this.props.appReducer.ticker}`);
   }
 
   render() {

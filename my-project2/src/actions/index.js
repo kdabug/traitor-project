@@ -1,6 +1,8 @@
 //example action
 import {
   APP_INITIAL_DATA_FETCH,
+  APP_UPDATE_NAME_AND_VALUE,
+  APP_RESET_USER_INPUT,
   COMPASS_UPDATE_TICKER
 } from "../constants/actionTypes";
 import { fetchStockSymbols, fetchStockLists } from "../services/stocks";
@@ -23,13 +25,28 @@ export const appInitialDataFetch = (listSelect = "mostActive") => {
 };
 
 //appUpdateNameAndValue
+export const appUpdateNameAndValue = (name, value) => {
+  return { type: APP_UPDATE_NAME_AND_VALUE, payload: { [name]: value } };
+};
 //appResetUserInput
-
+export const appResetUserInput = () => {
+  return { type: APP_RESET_USER_INPUT, payload: { userInput: "" } };
+};
 // COMPASS ACTIONS
-export const compassUpdateTickerSymbol = (tickerInfo, push = null) => {
-  this.setState((prevState, newState) => ({
-    ticker: newTicker,
-    userInput: ""
-  }));
-  this.props.history.push(`/compass/${this.props.appReducer.newTicker}`);
+export const compassUpdateTickerSymbol = () => {
+  return (dispatch, getState) => {
+    console.log("COMPASS UPDATE TICKER STATE: ", getState().appReducer);
+    const { userInput, stockInfo } = getState().appReducer;
+    const ticker = getTickerIndex(stockInfo, userInput);
+    console.log("action compass ticker", ticker);
+    return Promise.all([
+      dispatch({ type: COMPASS_UPDATE_TICKER, payload: { ticker } }),
+      dispatch(appResetUserInput())
+    ]);
+  };
+  // this.setState((prevState, newState) => ({
+  //   ticker: newTicker,
+  //   userInput: ""
+  // }));
+  // this.props.history.push(`/compass/${this.props.appReducer.newTicker}`);
 };
