@@ -118,7 +118,7 @@ nav a {
   background-repeat: no-repeat;
   background-size: cover;
   /* background-position-x: 25vw; */
-  background-image: url("./images/calico-jack.png");
+  background-image: url("../images/calico-jack.png");
   align-content: center;
   justify-content: center;
   text-align: center;
@@ -170,7 +170,7 @@ nav a {
 }
 
 #chest {
-  background-image: url("./images/chest.svg");
+  background-image: url("../images/chest.svg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 40px;
@@ -180,7 +180,7 @@ nav a {
 }
 
 #compass {
-  background-image: url("./images/compass.svg");
+  background-image: url("../images/compass.svg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 40px;
@@ -190,7 +190,7 @@ nav a {
 }
 
 #anchor {
-  background-image: url("./images/Anchor_pictogram_svg.png");
+  background-image: url("../images/Anchor_pictogram_svg.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 40px;
@@ -200,7 +200,7 @@ nav a {
 }
 
 #flag {
-  background-image: url("./images/pirateflagsvg.svg");
+  background-image: url("../images/pirateflagsvg.svg");
   background-repeat: no-repeat;
   background-size: cover;
   height: 40px;
@@ -238,7 +238,7 @@ nav a {
   /* position: relative; */
 }
 .chest-container::after {
-  background-image: url("./images/chest.svg");
+  background-image: url("../images/chest.svg");
   background-repeat: no-repeat;
   background-size: cover;
   margin-top: 60px;
@@ -280,7 +280,7 @@ nav a {
   margin-top: 60px;
 }
 .plank-container::after {
-  background-image: url("./images/man-in-stocks-illustration.jpg");
+  background-image: url("../images/man-in-stocks-illustration.jpg");
   background-repeat: no-repeat;
   background-size: cover;
   width: 100vw;
@@ -572,7 +572,7 @@ input.search-box {
   position: relative;
 }
 .stock-detail::after {
-  background-image: url("./images/pillory.png");
+  background-image: url("../images/pillory.png");
   background-repeat: no-repeat;
   background-size: cover;
   margin-top: 60px;

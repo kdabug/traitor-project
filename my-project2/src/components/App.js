@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import "./App.css";
+import "../styles/App.css";
 import {
   fetchTickerPrice,
   fetchCompanyInfo,
@@ -9,17 +9,17 @@ import {
   fetchCompanyKeyStats,
   fetchStockSymbols,
   fetchStockLists
-} from "./services/stocks";
-import Footer from "./components/Footer";
+} from "../services/stocks";
+import Footer from "./Footer";
 import { Route, Link, withRouter } from "react-router-dom";
-import Welcome from "./components/Welcome";
-import Chest from "./components/Chest";
-import Plank from "./components/Plank";
-import Profile from "./components/Profile";
-import Records from "./components/Records";
-import StockDetails from "./components/StockDetail";
-import Compass from "./components/Compass";
-
+import Welcome from "./Welcome";
+import Chest from "./Chest";
+import Plank from "./Plank";
+import Profile from "./Profile";
+import Records from "./Records";
+import StockDetails from "./StockDetail";
+import Compass from "./Compass";
+import { connect } from "react-redux";
 class App extends Component {
   constructor() {
     super();
@@ -357,5 +357,7 @@ class App extends Component {
     );
   }
 }
-
-export default withRouter(App);
+const mapStateToProps = state => {
+  return { state };
+};
+export default withRouter(connect(mapStateToProps)(App));
