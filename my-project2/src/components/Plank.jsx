@@ -18,6 +18,7 @@ class Plank extends Component {
   handleListChange(e) {
     e.preventDefault();
     const { name, value } = e.target;
+    console.log("this is list change", name, value);
     this.props.dispatch(appUpdateNameAndValue(name, value));
   }
 
@@ -25,10 +26,16 @@ class Plank extends Component {
     e.preventDefault();
     this.props.dispatch(plankFetchTickerList());
   }
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.state.appReducer.listSelect !==
+      this.props.state.appReducer.listSelect
+    ) {
+      this.props.dispatch(plankFetchTickerList());
+    }
+  }
 
   render() {
-    console.log("PLANK: ", this.props.ticker);
-
     return (
       <div className="plank-container">
         <Nav />
@@ -38,11 +45,18 @@ class Plank extends Component {
         </div>
         {/* <MarketTimer stockList={this.props.stockList} /> */}
         <div className="plank-list">
-          <QueryBar />
+          <QueryBar
+            redirect={() =>
+              this.props.history.push(
+                `/details/${this.props.state.appReducer.ticker}`
+              )
+            }
+          />
           <RenderStockList
             onListChange={this.handleListChange}
             onListSubmit={this.handleListSubmit}
-            stockList={this.props.stockList}
+            stockList={this.props.state.appReducer.stockList}
+            title={this.props.state.appReducer.listSelect}
           />
         </div>
       </div>

@@ -31,8 +31,10 @@ class QueryBar extends Component {
 
   handleQueryBarSubmit(e) {
     e.preventDefault();
-    this.props.dispatch(queryBarUpdateTickerSymbol());
-    this.props.history.push(`/compass/${this.props.state.appReducer.ticker}`);
+    this.props.redirect();
+    this.props.dispatch(
+      queryBarUpdateTickerSymbol(this.props.state.appReducer.userInput)
+    );
   }
 
   render() {

@@ -56,12 +56,6 @@ function appReducer(state = initialState, action) {
     case APP_UPDATE_NAME_AND_VALUE: {
       state = { ...state, ...action.payload };
     }
-    case PLANK_FETCH_TICKER_INFO: {
-      state = { ...state, ...action.payload };
-    }
-    case PLANK_FETCH_TICKER_LIST: {
-      state = { ...state, ...action.payload };
-    }
     case QUERY_BAR_UPDATE_TICKER: {
       state = { ...state, ...action.payload };
     }
@@ -72,6 +66,12 @@ function appReducer(state = initialState, action) {
       state = { ...state, ...action.payload };
     }
     case COMPASS_HISTORY_DATA_FETCH: {
+      state = { ...state, ...action.payload };
+    }
+    case PLANK_FETCH_TICKER_INFO: {
+      state = { ...state, ...action.payload };
+    }
+    case PLANK_FETCH_TICKER_LIST: {
       state = { ...state, ...action.payload };
     }
   }

@@ -15,7 +15,6 @@ class Compass extends Component {
   }
 
   componentDidMount() {
-    console.log("COMPASS LOCATION", this.props.location.pathname);
     this.props.dispatch(
       compassHistoryDataFetch(
         createTickerVal(this.props.state.appReducer.ticker)
@@ -24,17 +23,16 @@ class Compass extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.ticker !== this.props.state.appReducer.ticker) {
+    if (
+      prevProps.state.appReducer.ticker !== this.props.state.appReducer.ticker
+    ) {
       console.log(
         "componentDidUpdate COMPASS",
         this.props.state.appReducer.ticker
       );
       this.props.dispatch(
         compassHistoryDataFetch(
-          createTickerVal(
-            this.props.location.pathname,
-            this.props.state.appReducer.ticker
-          )
+          createTickerVal(this.props.state.appReducer.ticker)
         )
       );
     }
@@ -65,11 +63,17 @@ class Compass extends Component {
         <div className="page-titles">
           <h1>the Compass</h1>
           <p>
-            red skies at morn, traitors take warn <br /> red skies at night,
-            traitors delight
+            red skies at morn, traders take warn <br /> red skies at night,
+            traders delight
           </p>
         </div>
-        <QueryBar />
+        <QueryBar
+          redirect={() =>
+            this.props.history.push(
+              `/compass/${this.props.state.appReducer.ticker}`
+            )
+          }
+        />
         {chartData && <div className="chart-container">{lineChart}</div>}
       </div>
     );

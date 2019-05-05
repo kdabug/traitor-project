@@ -37,7 +37,7 @@ handleCompassSubmit(e) {
     this.setState((prevState, newState) => ({
       [name]: value
     }));
-    const { userInput, stockInfo } = this.state;
+    const { userInput, stockInfo } = this.props.state.appReducer;
     const tickerIndex = stockInfo.filter(
       stock =>
         stock.name.toLowerCase() === userInput.toLowerCase() ||
@@ -58,7 +58,7 @@ and code that handles rendering the compass page if it is updated
 constructor(props) {
     super(props);
 
-    this.state = {
+    this.props.state.appReducer = {
       historicalPrices: [],
       chartData: []
     };
@@ -78,7 +78,7 @@ constructor(props) {
     this.setState((prevState, newState) => ({
       historicalPrices: historicalPrices
     }));
-    if (this.state.historicalPrices.length) {
+    if (this.props.state.appReducer.historicalPrices.length) {
       this.compileChartData();
     }
   }
@@ -95,7 +95,7 @@ constructor(props) {
   }
 
   compileChartData() {
-    const chartData = this.state.historicalPrices.map((timeStamp, el) => [
+    const chartData = this.props.state.appReducer.historicalPrices.map((timeStamp, el) => [
       timeStamp.label,
       timeStamp.average
     ]);
