@@ -1,23 +1,50 @@
 import React, { Component } from "react";
 import { Route, Link, withRouter } from "react-router-dom";
+import { connect } from "react-redux";
+import {
+  queryBarRemoveOptions,
+  queryBarFilterOptions,
+  queryBarUpdateTickerSymbol,
+  appUpdateNameAndValue
+} from "../actions";
 
-class Form extends Component {
+class QueryBar extends Component {
+  constructor(props) {
+    super(props);
+    this.handleQueryBarChange = this.handleQueryBarChange.bind(this);
+    this.handleQueryBarClick = this.handleQueryBarClick.bind(this);
+    this.handleQueryBarSubmit = this.handleQueryBarSubmit.bind(this);
+  }
+
+  handleQueryBarClick(e) {
+    const userInput = e.currentTarget.innerText;
+    this.props.dispatch(queryBarRemoveOptions(userInput));
+  }
+
+  handleQueryBarChange(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    console.log("query bar change", name, value);
+    this.props.dispatch(appUpdateNameAndValue(name, value));
+    this.props.dispatch(queryBarFilterOptions(name, value));
+  }
+
+  handleQueryBarSubmit(e) {
+    e.preventDefault();
+    this.props.redirect();
+    this.props.dispatch(
+      queryBarUpdateTickerSymbol(this.props.state.appReducer.userInput)
+    );
+  }
+
   render() {
-    // propTypes = {
-    //   options: PropTypes.instanceOf(Array).isRequired
-    // };
     const {
-      onChange,
-      onClick,
-      onKeyDown,
       activeOption,
       filteredOptions,
       showOptions,
-      userInput,
-      onSubmit,
-      ticker
-    } = this.props;
-    console.log("FORM TICKER: ", this.props);
+      userInput
+    } = this.props.state.appReducer;
+    console.log("queryBAR userINput", userInput);
     let optionList;
     if (showOptions && userInput) {
       if (filteredOptions.length) {
@@ -33,7 +60,7 @@ class Form extends Component {
                   id="list-els"
                   className={className}
                   key={`${optionName}-${index}`}
-                  onClick={onClick}
+                  onClick={this.handleQueryBarClick}
                 >
                   {optionName}
                 </li>
@@ -57,10 +84,9 @@ class Form extends Component {
             <input
               type="text"
               className="search-box"
-              onChange={onChange}
-              onKeyDown={onKeyDown}
+              onChange={this.handleQueryBarChange}
               value={userInput}
-              onSubmit={onSubmit}
+              onSubmit={this.handleQueryBarSubmit}
               name="userInput"
               autoComplete="off"
               placeholder="search company name or ticker symbol"
@@ -70,7 +96,7 @@ class Form extends Component {
             form="query-search-form"
             type="submit"
             value="submit"
-            onClick={onSubmit}
+            onClick={this.handleQueryBarSubmit}
             className="search-btn"
           >
             {/* <Link to={`/details/${ticker}`} className="more-details-button"> */}
@@ -83,7 +109,8 @@ class Form extends Component {
     );
   }
 }
-export default withRouter(Form);
+const mapStateToProps = state => ({ state });
+export default withRouter(connect(mapStateToProps)(QueryBar));
 
 /* //this autocomplete has been researched - but has focused info from
 //https://alligator.io/react/react-autocomplete/ and

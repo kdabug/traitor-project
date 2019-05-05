@@ -1,18 +1,41 @@
 import React, { Component } from "react";
 import RenderStockList from "./RenderStockList";
 import Nav from "./Nav";
-import Form from "./Form";
+import { Route, Link, withRouter } from "react-router-dom";
 import MarketTimer from "./MarketTimer";
+import { connect } from "react-redux";
+import { appUpdateNameAndValue, plankFetchTickerList } from "../actions";
+import QueryBar from "./QueryBar";
 //TODO: fix MarketTimer before final deployment
 //TODO: starboard side - favorites instead of profile and current user
 class Plank extends Component {
   constructor() {
     super();
+    this.handleListChange = this.handleListChange.bind(this);
+    this.handleListSubmit = this.handleListSubmit.bind(this);
+  }
+
+  handleListChange(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    console.log("this is list change", name, value);
+    this.props.dispatch(appUpdateNameAndValue(name, value));
+  }
+
+  handleListSubmit(e) {
+    e.preventDefault();
+    this.props.dispatch(plankFetchTickerList());
+  }
+  componentDidUpdate(prevProps) {
+    if (
+      prevProps.state.appReducer.listSelect !==
+      this.props.state.appReducer.listSelect
+    ) {
+      this.props.dispatch(plankFetchTickerList());
+    }
   }
 
   render() {
-    console.log("PLANK: ", this.props.ticker);
-
     return (
       <div className="plank-container">
         <Nav />
@@ -22,24 +45,23 @@ class Plank extends Component {
         </div>
         {/* <MarketTimer stockList={this.props.stockList} /> */}
         <div className="plank-list">
-          <Form
-            onChange={this.props.onChange}
-            options={this.props.options}
-            showOptions={this.props.showOptions}
-            userInput={this.props.userInput}
-            filteredOptions={this.props.filteredOptions}
-            activeOption={this.props.activeOption}
-            onClick={this.props.onClick}
-            onSubmit={this.props.onDetailSubmit}
+          <QueryBar
+            redirect={() =>
+              this.props.history.push(
+                `/details/${this.props.state.appReducer.ticker}`
+              )
+            }
           />
           <RenderStockList
-            onListChange={this.props.onListChange}
-            onListSubmit={this.props.onListSubmit}
-            stockList={this.props.stockList}
+            onListChange={this.handleListChange}
+            onListSubmit={this.handleListSubmit}
+            stockList={this.props.state.appReducer.stockList}
+            title={this.props.state.appReducer.listSelect}
           />
         </div>
       </div>
     );
   }
 }
-export default Plank;
+const mapStateToProps = state => ({ state });
+export default withRouter(connect(mapStateToProps)(Plank));

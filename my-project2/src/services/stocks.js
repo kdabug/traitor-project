@@ -149,7 +149,6 @@ export {
   fetchCompanyLogo,
   fetchCompanyKeyStats,
   fetchStockSymbols,
-  fetchStockLists
+  fetchStockLists,
+  fetchHistoricalPrices
 };
-
-export default fetchHistoricalPrices;

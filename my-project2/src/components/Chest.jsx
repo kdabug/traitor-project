@@ -1,13 +1,14 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
 import ChooseBounty from "./ChooseBounty";
-import Form from "./Form";
-
+import Form from "./QueryBar";
+import { connect } from "react-redux";
+import { Route, Link, withRouter } from "react-router-dom";
 //TODO add websocket (socket.id) for DEEP Official Price for saved stocks.
 class Chest extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.props.state.appReducer = {
       howManyCanIBuy: ""
     };
   }
@@ -47,8 +48,10 @@ class Chest extends Component {
             ticker={this.props.ticker}
           />
           <div className="inventory-list">
-            {this.state.createHowManyCanIBuy}
-            <h2>You can buy: {this.state.createHowManyCanIBuy}</h2>
+            {this.props.state.appReducer.createHowManyCanIBuy}
+            <h2>
+              You can buy: {this.props.state.appReducer.createHowManyCanIBuy}
+            </h2>
           </div>
         </div>
 
@@ -66,4 +69,5 @@ class Chest extends Component {
   }
 }
 
-export default Chest;
+const mapStateToProps = state => ({ state });
+export default withRouter(connect(mapStateToProps)(Chest));
