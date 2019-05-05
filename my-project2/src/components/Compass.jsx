@@ -1,83 +1,52 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
-//import { LineChart } from "react-easy-chart";
-import fetchHistoricalPrices from "../services/stocks";
-import Form from "./Form";
 import { Route, Link, withRouter } from "react-router-dom"; //import Tooltip from "@material-ui/core/Tooltip";
-
 import ReactChartkick, { LineChart, PieChart } from "react-chartkick";
 import Chart from "chart.js";
 import { connect } from "react-redux";
-import { appUpdateNameAndValue, compassUpdateTickerSymbol } from "../actions";
-
+import QueryBar from "./QueryBar";
+import { createTickerVal } from "../utilities";
+import { compassHistoryDataFetch } from "../actions";
 ReactChartkick.addAdapter(Chart);
+
 class Compass extends Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      historicalPrices: [],
-      chartData: []
-    };
-    this.compileChartData = this.compileChartData.bind(this);
-    this.fetchHistoryData = this.fetchHistoryData.bind(this);
-    this.createTickerVal = this.createTickerVal.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-  }
-  createTickerVal() {
-    const path = this.props.location.pathname.split("/")[2];
-    return this.props.ticker || path || "AAPL";
   }
 
-  async fetchHistoryData() {
-    const tickerVal = this.createTickerVal();
-    // tickerVal = tickerVal ? this.props.ticker : "AAPL";
-    const historicalPrices = await fetchHistoricalPrices(tickerVal, "1d");
-    this.setState((prevState, newState) => ({
-      historicalPrices: historicalPrices
-    }));
-    if (this.state.historicalPrices.length) {
-      this.compileChartData();
-    }
-  }
-
-  async componentDidMount() {
-    this.fetchHistoryData();
+  componentDidMount() {
+    console.log("COMPASS LOCATION", this.props.location.pathname);
+    this.props.dispatch(
+      compassHistoryDataFetch(
+        createTickerVal(this.props.state.appReducer.ticker)
+      )
+    );
   }
 
   componentDidUpdate(prevProps) {
-    if (prevProps.ticker !== this.props.ticker) {
-      console.log("FETCHING HISTORY DATA!", this.props.ticker);
-      this.fetchHistoryData();
+    if (prevProps.ticker !== this.props.state.appReducer.ticker) {
+      console.log(
+        "componentDidUpdate COMPASS",
+        this.props.state.appReducer.ticker
+      );
+      this.props.dispatch(
+        compassHistoryDataFetch(
+          createTickerVal(
+            this.props.location.pathname,
+            this.props.state.appReducer.ticker
+          )
+        )
+      );
     }
   }
 
-  compileChartData() {
-    const chartData = this.state.historicalPrices.map((timeStamp, el) => [
-      timeStamp.label,
-      timeStamp.average
-    ]);
-    this.setState((prevState, newState) => ({
-      chartData: chartData
-    }));
-    console.log("chartData", chartData);
-  }
-
-  handleFormSubmit(e) {
-    e.preventDefault();
-    const { name, value } = e.target;
-    this.props.dispatch(appUpdateNameAndValue(name, value));
-    this.props.dispatch(compassUpdateTickerSymbol());
-    this.props.history.push(`/compass/${this.props.appReducer.ticker}`);
-  }
-
   render() {
-    console.log("COMPASS PROPS: ", this.props);
+    const { chartData } = this.props.state.appReducer;
     const lineChart = (
       <div>
         <LineChart
-          data={this.state.chartData}
-          title={this.createTickerVal()}
+          data={chartData}
+          title={createTickerVal()}
           min={null}
           max={null}
           width={"800px"}
@@ -100,18 +69,8 @@ class Compass extends Component {
             traitors delight
           </p>
         </div>
-        <Form
-          onChange={this.props.onChange}
-          options={this.props.options}
-          showOptions={this.props.showOptions}
-          userInput={this.props.userInput}
-          filteredOptions={this.props.filteredOptions}
-          activeOption={this.props.activeOption}
-          onClick={this.props.onClick}
-          onSubmit={this.handleFormSubmit}
-          ticker={this.props.ticker}
-        />
-        <div className="chart-container">{lineChart}</div>
+        <QueryBar />
+        {chartData && <div className="chart-container">{lineChart}</div>}
       </div>
     );
   }

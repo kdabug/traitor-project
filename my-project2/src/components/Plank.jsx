@@ -1,13 +1,29 @@
 import React, { Component } from "react";
 import RenderStockList from "./RenderStockList";
 import Nav from "./Nav";
-import Form from "./Form";
+import { Route, Link, withRouter } from "react-router-dom";
 import MarketTimer from "./MarketTimer";
+import { connect } from "react-redux";
+import { appUpdateNameAndValue, plankFetchTickerList } from "../actions";
+import QueryBar from "./QueryBar";
 //TODO: fix MarketTimer before final deployment
 //TODO: starboard side - favorites instead of profile and current user
 class Plank extends Component {
   constructor() {
     super();
+    this.handleListChange = this.handleListChange.bind(this);
+    this.handleListSubmit = this.handleListSubmit.bind(this);
+  }
+
+  handleListChange(e) {
+    e.preventDefault();
+    const { name, value } = e.target;
+    this.props.dispatch(appUpdateNameAndValue(name, value));
+  }
+
+  handleListSubmit(e) {
+    e.preventDefault();
+    this.props.dispatch(plankFetchTickerList());
   }
 
   render() {
@@ -22,19 +38,10 @@ class Plank extends Component {
         </div>
         {/* <MarketTimer stockList={this.props.stockList} /> */}
         <div className="plank-list">
-          <Form
-            onChange={this.props.onChange}
-            options={this.props.options}
-            showOptions={this.props.showOptions}
-            userInput={this.props.userInput}
-            filteredOptions={this.props.filteredOptions}
-            activeOption={this.props.activeOption}
-            onClick={this.props.onClick}
-            onSubmit={this.props.onDetailSubmit}
-          />
+          <QueryBar />
           <RenderStockList
-            onListChange={this.props.onListChange}
-            onListSubmit={this.props.onListSubmit}
+            onListChange={this.handleListChange}
+            onListSubmit={this.handleListSubmit}
             stockList={this.props.stockList}
           />
         </div>
@@ -42,4 +49,5 @@ class Plank extends Component {
     );
   }
 }
-export default Plank;
+const mapStateToProps = state => ({ state });
+export default withRouter(connect(mapStateToProps)(Plank));

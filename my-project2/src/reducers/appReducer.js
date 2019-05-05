@@ -1,8 +1,13 @@
 import {
   APP_INITIAL_DATA_FETCH,
-  APP_RESET_USER_INPUT,
   APP_UPDATE_NAME_AND_VALUE,
-  COMPASS_UPDATE_TICKER
+  APP_RESET_USER_INPUT,
+  QUERY_BAR_FILTER_OPTIONS,
+  QUERY_BAR_UPDATE_TICKER,
+  QUERY_BAR_REMOVE_OPTIONS,
+  PLANK_FETCH_TICKER_INFO,
+  PLANK_FETCH_TICKER_LIST,
+  COMPASS_HISTORY_DATA_FETCH
 } from "../constants/actionTypes";
 
 const initialState = {
@@ -32,13 +37,15 @@ const initialState = {
   showOptions: false,
 
   listSelect: "mostActive",
-  stockList: []
+  stockList: [],
+
+  historicalPrices: [],
+  chartData: []
 };
 
 function appReducer(state = initialState, action) {
   console.log("REDUCER - ACTION PAYLOAD: ", action.payload);
   console.log("REDUCER - ACTION TYPE: ", action.type);
-  console.log("APP REDUCER STATE: ", state);
   switch (action.type) {
     case APP_INITIAL_DATA_FETCH: {
       state = { ...state, ...action.payload };
@@ -49,7 +56,22 @@ function appReducer(state = initialState, action) {
     case APP_UPDATE_NAME_AND_VALUE: {
       state = { ...state, ...action.payload };
     }
-    case COMPASS_UPDATE_TICKER: {
+    case PLANK_FETCH_TICKER_INFO: {
+      state = { ...state, ...action.payload };
+    }
+    case PLANK_FETCH_TICKER_LIST: {
+      state = { ...state, ...action.payload };
+    }
+    case QUERY_BAR_UPDATE_TICKER: {
+      state = { ...state, ...action.payload };
+    }
+    case QUERY_BAR_FILTER_OPTIONS: {
+      state = { ...state, ...action.payload };
+    }
+    case QUERY_BAR_REMOVE_OPTIONS: {
+      state = { ...state, ...action.payload };
+    }
+    case COMPASS_HISTORY_DATA_FETCH: {
       state = { ...state, ...action.payload };
     }
   }

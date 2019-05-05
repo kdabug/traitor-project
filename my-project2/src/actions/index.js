@@ -3,10 +3,30 @@ import {
   APP_INITIAL_DATA_FETCH,
   APP_UPDATE_NAME_AND_VALUE,
   APP_RESET_USER_INPUT,
-  COMPASS_UPDATE_TICKER
+  QUERY_BAR_FILTER_OPTIONS,
+  QUERY_BAR_UPDATE_TICKER,
+  QUERY_BAR_REMOVE_OPTIONS,
+  PLANK_FETCH_TICKER_INFO,
+  PLANK_FETCH_TICKER_LIST,
+  COMPASS_HISTORY_DATA_FETCH
 } from "../constants/actionTypes";
-import { fetchStockSymbols, fetchStockLists } from "../services/stocks";
-import { getTickerIndex } from "../utilities";
+import {
+  fetchTickerPrice,
+  fetchCompanyInfo,
+  fetchCompanyFinancials,
+  fetchCompanyPeers,
+  fetchCompanyLogo,
+  fetchCompanyKeyStats,
+  fetchStockSymbols,
+  fetchStockLists,
+  fetchHistoricalPrices
+} from "../services/stocks";
+import {
+  getTickerIndex,
+  getFilteredOptions,
+  compileChartData
+} from "../utilities";
+
 // APP ACTIONS
 export const appInitialDataFetch = (listSelect = "mostActive") => {
   return async dispatch => {
@@ -24,29 +44,93 @@ export const appInitialDataFetch = (listSelect = "mostActive") => {
   };
 };
 
-//appUpdateNameAndValue
 export const appUpdateNameAndValue = (name, value) => {
   return { type: APP_UPDATE_NAME_AND_VALUE, payload: { [name]: value } };
 };
-//appResetUserInput
+
 export const appResetUserInput = () => {
   return { type: APP_RESET_USER_INPUT, payload: { userInput: "" } };
 };
-// COMPASS ACTIONS
-export const compassUpdateTickerSymbol = () => {
+
+//QUERY BAR ACTIONS
+export const queryBarFilterOptions = (name, value) => {
+  return (dispatch, getState) => {
+    const { autocompleteOptions } = getState().appReducer;
+    const filteredOptions = getFilteredOptions(autocompleteOptions, value);
+    const payload = {
+      activeOption: 0,
+      filteredOptions: filteredOptions,
+      showOptions: true,
+      [name]: value
+    };
+    return Promise.all([dispatch({ type: QUERY_BAR_FILTER_OPTIONS, payload })]);
+  };
+};
+
+export const queryBarRemoveOptions = value => {
+  const payload = {
+    activeOption: 0,
+    filteredOptions: [],
+    showOptions: false,
+    userInput: value
+  };
+  return { type: QUERY_BAR_REMOVE_OPTIONS, payload };
+};
+
+export const queryBarUpdateTickerSymbol = value => {
   return (dispatch, getState) => {
     console.log("COMPASS UPDATE TICKER STATE: ", getState().appReducer);
-    const { userInput, stockInfo } = getState().appReducer;
-    const ticker = getTickerIndex(stockInfo, userInput);
+    const { stockInfo } = getState().appReducer;
+    const ticker = getTickerIndex(stockInfo, value);
     console.log("action compass ticker", ticker);
     return Promise.all([
-      dispatch({ type: COMPASS_UPDATE_TICKER, payload: { ticker } }),
+      dispatch({ type: QUERY_BAR_UPDATE_TICKER, payload: { ticker } }),
       dispatch(appResetUserInput())
     ]);
   };
-  // this.setState((prevState, newState) => ({
-  //   ticker: newTicker,
-  //   userInput: ""
-  // }));
-  // this.props.history.push(`/compass/${this.props.appReducer.newTicker}`);
+};
+
+// PLANK ACTIONS
+export const plankFetchTickerInfo = (ticker = "AAPL") => {
+  return async dispatch => {
+    const tickerPrice = await fetchTickerPrice(ticker);
+    const companyFinancials = await fetchCompanyFinancials(ticker);
+    const companyInfo = await fetchCompanyInfo(ticker);
+    const companyPeers = await fetchCompanyPeers(ticker);
+    const companyLogo = await fetchCompanyLogo(ticker);
+    const keyStats = await fetchCompanyKeyStats(ticker);
+    const payload = {
+      tickerInfo: {
+        tickerPrice: tickerPrice,
+        companyInfo: companyInfo,
+        companyFinancials: companyFinancials,
+        companyPeers: companyPeers,
+        companyLogo: companyLogo,
+        keyStats: keyStats
+      }
+    };
+    return dispatch({ type: PLANK_FETCH_TICKER_INFO, payload });
+  };
+};
+
+export const plankFetchTickerList = () => {
+  return async (dispatch, getState) => {
+    const { listSelect } = getState().appReducer;
+    const stockList = await fetchStockLists(listSelect);
+    const payload = { stockList };
+    return dispatch({ type: PLANK_FETCH_TICKER_LIST, payload });
+  };
+};
+
+// COMPASS ACTIONS
+export const compassHistoryDataFetch = ticker => {
+  return async dispatch => {
+    const historicalPrices = await fetchHistoricalPrices(ticker, "1d");
+    const chartData = compileChartData(historicalPrices);
+    const payload = {
+      historicalPrices,
+      chartData
+    };
+    return dispatch({ type: COMPASS_HISTORY_DATA_FETCH, payload });
+  };
 };

@@ -14,14 +14,14 @@
 //     super(props);
 
 //     this.toggleNavbar = this.toggleNavbar.bind(this);
-//     this.state = {
+//     this.props.state.appReducer = {
 //       collapsed: true
 //     };
 //   }
 
 //   toggleNavbar() {
 //     this.setState({
-//       collapsed: !this.state.collapsed
+//       collapsed: !this.props.state.appReducer.collapsed
 //     });
 //   }
 //   render() {
@@ -32,7 +32,7 @@
 //             reactstrap
 //           </NavbarBrand>
 //           <NavbarToggler onClick={this.toggleNavbar} className="mr-2" />
-//           <Collapse isOpen={!this.state.collapsed} navbar>
+//           <Collapse isOpen={!this.props.state.appReducer.collapsed} navbar>
 //             <Nav navbar>
 //               <NavItem>
 //                 <NavLink onClick={() => this.props.history.push(`/`)}>
@@ -204,7 +204,7 @@
 //         </MuiThemeProvider>
 
 //         <Drawer
-//           open={this.state.left}
+//           open={this.props.state.appReducer.left}
 //           onClose={this.toggleDrawer("left", false)}
 //         >
 //           <div

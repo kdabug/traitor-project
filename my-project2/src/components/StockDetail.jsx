@@ -14,7 +14,7 @@ import { Route, Link, withRouter } from "react-router-dom";
 class StockDetail extends Component {
   constructor(props) {
     super(props);
-    this.state = {
+    this.props.state.appReducer = {
       showPeers: false
     };
     this.handleShowPeersButton = this.handleShowPeersButton.bind(this);
@@ -83,9 +83,11 @@ class StockDetail extends Component {
               className="show-details-button"
               onClick={this.handleShowPeersButton}
             >
-              {this.state.showPeers ? "Hide Peers" : "Show Peers"}
+              {this.props.state.appReducer.showPeers
+                ? "Hide Peers"
+                : "Show Peers"}
             </button>
-            {this.state.showPeers && (
+            {this.props.state.appReducer.showPeers && (
               <div className="show-peers">
                 <ul className="peers">
                   {tickerInfo.companyPeers.map((peer, index) => (
