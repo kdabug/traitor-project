@@ -1,37 +1,37 @@
 import React, { Component } from "react";
 import Nav from "./Nav";
 import { Route, Link, withRouter } from "react-router-dom";
+import {
+  stockDetailToggleShowPeers,
+  stockDetailFetchTickerInfo
+} from "../actions";
+import { connect } from "react-redux";
 
-// tickerInfo: {
-//   tickerPrice: 0,
-//   companyInfo: {},
-//   companyFinancials: {},
-//   HistoricalPrices: [],
-//   companyPeers: [],
-//   companyLogo: {},
-//   keyStats: {}
-// },
 class StockDetail extends Component {
   constructor(props) {
     super(props);
-    this.props.state.appReducer = {
-      showPeers: false
-    };
     this.handleShowPeersButton = this.handleShowPeersButton.bind(this);
   }
   handleShowPeersButton(e) {
     e.preventDefault();
-    this.setState(prevState => ({ showPeers: !prevState.showPeers }));
+    this.props.dispatch(stockDetailToggleShowPeers());
   }
-  async componentDidMount() {
-    await this.props.fetchSpecificTickerInfo(this.props.match.params.ticker);
+
+  componentDidMount() {
+    this.props.dispatch(
+      stockDetailFetchTickerInfo(this.props.state.appReducer.ticker)
+    );
   }
 
   render() {
-    const { ticker, tickerInfo } = this.props;
+    const {
+      ticker,
+      tickerInfo,
+      stockDetailShowPeers
+    } = this.props.state.appReducer;
     console.log("STOCK DETAIL ticker: ", ticker);
     console.log("STOCK DETAIL tickerInfo: ", tickerInfo);
-    console.log("STOCK DETAIL match params: ", this.props.match.params.ticker);
+
     return (
       <>
         <Nav />
@@ -83,11 +83,9 @@ class StockDetail extends Component {
               className="show-details-button"
               onClick={this.handleShowPeersButton}
             >
-              {this.props.state.appReducer.showPeers
-                ? "Hide Peers"
-                : "Show Peers"}
+              {stockDetailShowPeers ? "Hide Peers" : "Show Peers"}
             </button>
-            {this.props.state.appReducer.showPeers && (
+            {stockDetailShowPeers && (
               <div className="show-peers">
                 <ul className="peers">
                   {tickerInfo.companyPeers.map((peer, index) => (
@@ -98,11 +96,7 @@ class StockDetail extends Component {
             )}
             <button
               className="show-details-button"
-              onClick={() =>
-                this.props.history.push(
-                  `/compass/${this.props.match.params.ticker}`
-                )
-              }
+              onClick={() => this.props.history.push(`/compass/${ticker}`)}
             >
               Compass
               <br />
@@ -114,4 +108,5 @@ class StockDetail extends Component {
     );
   }
 }
-export default withRouter(StockDetail);
+const mapStateToProps = state => ({ state });
+export default withRouter(connect(mapStateToProps)(StockDetail));

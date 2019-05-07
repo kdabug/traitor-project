@@ -48,27 +48,8 @@ class App extends Component {
               />
             )}
           />
-          <Route path="/plank" component={() => <Plank />} />
-          <Route
-            path="/compass"
-            render={props => (
-              <Compass
-                ticker={this.props.state.appReducer.ticker}
-                fetchSpecificTickerInfo={this.fetchSpecificTickerInfo}
-                tickerInfo={this.props.state.appReducer.tickerInfo}
-                stockInfo={this.props.state.appReducer.stockInfo}
-                onKeyDown={this.handleQueryKeyDown}
-                onChange={this.handleQueryChange}
-                onClick={this.handleQueryClick}
-                onDetailSubmit={this.handleDetailSubmit}
-                onCompassSubmit={this.handleCompassSubmit}
-                showOptions={this.props.state.appReducer.showOptions}
-                userInput={this.props.state.appReducer.userInput}
-                filteredOptions={this.props.state.appReducer.filteredOptions}
-                activeOption={this.props.state.appReducer.activeOption}
-              />
-            )}
-          />
+          <Route path="/plank" render={() => <Plank />} />
+          <Route path="/compass" render={() => <Compass />} />
           <Route path="/records" render={() => <Records />} />
           <Route path="/profile" render={() => <Profile />} />
           <Route

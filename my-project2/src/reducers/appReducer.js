@@ -5,8 +5,9 @@ import {
   QUERY_BAR_FILTER_OPTIONS,
   QUERY_BAR_UPDATE_TICKER,
   QUERY_BAR_REMOVE_OPTIONS,
-  PLANK_FETCH_TICKER_INFO,
+  STOCK_DETAIL_FETCH_TICKER_INFO,
   PLANK_FETCH_TICKER_LIST,
+  STOCK_DETAIL_TOGGLE_SHOW_PEERS,
   COMPASS_HISTORY_DATA_FETCH
 } from "../constants/actionTypes";
 
@@ -40,7 +41,25 @@ const initialState = {
   stockList: [],
 
   historicalPrices: [],
-  chartData: []
+  chartData: [],
+
+  stockDetailShowPeers: false,
+
+  registerFormData: {
+    username: "",
+    email: "",
+    password: "",
+    avatar_id: "",
+    total_score: ""
+  },
+  currentUser: null,
+  toggleLogin: true,
+  loginFormData: {
+    email: "",
+    password: ""
+  },
+  token: "",
+  userData: {}
 };
 
 function appReducer(state = initialState, action) {
@@ -68,11 +87,14 @@ function appReducer(state = initialState, action) {
     case COMPASS_HISTORY_DATA_FETCH: {
       state = { ...state, ...action.payload };
     }
-    case PLANK_FETCH_TICKER_INFO: {
-      state = { ...state, ...action.payload };
-    }
     case PLANK_FETCH_TICKER_LIST: {
       state = { ...state, ...action.payload };
+    }
+    case STOCK_DETAIL_FETCH_TICKER_INFO: {
+      state = { ...state, ...action.payload };
+    }
+    case STOCK_DETAIL_TOGGLE_SHOW_PEERS: {
+      state = { ...state, stockDetailShowPeers: !state.stockDetailShowPeers };
     }
   }
   return state;

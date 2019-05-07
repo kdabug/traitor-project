@@ -208,10 +208,6 @@ nav a {
   content: "";
   z-index: 3;
 }
-#hover {
-  font-family: "IM Fell English SC", serif;
-  display: none;
-}
 
 .page-titles {
   margin: 0;

@@ -31,20 +31,20 @@ class QueryBar extends Component {
 
   handleQueryBarSubmit(e) {
     e.preventDefault();
-    this.props.redirect();
     this.props.dispatch(
       queryBarUpdateTickerSymbol(this.props.state.appReducer.userInput)
     );
   }
 
   render() {
+    console.log("QB PROPS", this.props);
     const {
       activeOption,
       filteredOptions,
       showOptions,
       userInput
     } = this.props.state.appReducer;
-    console.log("queryBAR userINput", userInput);
+
     let optionList;
     if (showOptions && userInput) {
       if (filteredOptions.length) {
@@ -76,7 +76,7 @@ class QueryBar extends Component {
         );
       }
     }
-
+    console.log("CURRENT FOCUS: ", document.activeElement);
     return (
       <div className="form-query">
         <div className="form-container">
@@ -90,6 +90,7 @@ class QueryBar extends Component {
               name="userInput"
               autoComplete="off"
               placeholder="search company name or ticker symbol"
+              key="mikayda"
             />
           </form>
           <button

@@ -26,12 +26,17 @@ class Plank extends Component {
     e.preventDefault();
     this.props.dispatch(plankFetchTickerList());
   }
+
   componentDidUpdate(prevProps) {
     if (
       prevProps.state.appReducer.listSelect !==
       this.props.state.appReducer.listSelect
     ) {
       this.props.dispatch(plankFetchTickerList());
+    } else if (
+      prevProps.state.appReducer.ticker !== this.props.state.appReducer.ticker
+    ) {
+      this.props.history.push(`/details/${this.props.state.appReducer.ticker}`);
     }
   }
 
@@ -45,13 +50,7 @@ class Plank extends Component {
         </div>
         {/* <MarketTimer stockList={this.props.stockList} /> */}
         <div className="plank-list">
-          <QueryBar
-            redirect={() =>
-              this.props.history.push(
-                `/details/${this.props.state.appReducer.ticker}`
-              )
-            }
-          />
+          <QueryBar />
           <RenderStockList
             onListChange={this.handleListChange}
             onListSubmit={this.handleListSubmit}

@@ -6,8 +6,9 @@ import {
   QUERY_BAR_FILTER_OPTIONS,
   QUERY_BAR_UPDATE_TICKER,
   QUERY_BAR_REMOVE_OPTIONS,
-  PLANK_FETCH_TICKER_INFO,
+  STOCK_DETAIL_FETCH_TICKER_INFO,
   PLANK_FETCH_TICKER_LIST,
+  STOCK_DETAIL_TOGGLE_SHOW_PEERS,
   COMPASS_HISTORY_DATA_FETCH
 } from "../constants/actionTypes";
 import {
@@ -91,7 +92,17 @@ export const queryBarUpdateTickerSymbol = value => {
 };
 
 // PLANK ACTIONS
-export const plankFetchTickerInfo = (ticker = "AAPL") => {
+export const plankFetchTickerList = () => {
+  return async (dispatch, getState) => {
+    const { listSelect } = getState().appReducer;
+    const stockList = await fetchStockLists(listSelect);
+    const payload = { stockList };
+    return dispatch({ type: PLANK_FETCH_TICKER_LIST, payload });
+  };
+};
+
+// STOCK DETAILS ACTIONS
+export const stockDetailFetchTickerInfo = (ticker = "AAPL") => {
   return async dispatch => {
     const tickerPrice = await fetchTickerPrice(ticker);
     const companyFinancials = await fetchCompanyFinancials(ticker);
@@ -109,17 +120,12 @@ export const plankFetchTickerInfo = (ticker = "AAPL") => {
         keyStats: keyStats
       }
     };
-    return dispatch({ type: PLANK_FETCH_TICKER_INFO, payload });
+    return dispatch({ type: STOCK_DETAIL_FETCH_TICKER_INFO, payload });
   };
 };
 
-export const plankFetchTickerList = () => {
-  return async (dispatch, getState) => {
-    const { listSelect } = getState().appReducer;
-    const stockList = await fetchStockLists(listSelect);
-    const payload = { stockList };
-    return dispatch({ type: PLANK_FETCH_TICKER_LIST, payload });
-  };
+export const stockDetailToggleShowPeers = () => {
+  return { type: STOCK_DETAIL_TOGGLE_SHOW_PEERS };
 };
 
 // COMPASS ACTIONS
