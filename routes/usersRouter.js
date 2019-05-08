@@ -8,8 +8,7 @@ const buildAuthResponse = user => {
     id: user.id,
     username: user.username,
     email: user.email,
-    avatar: user.avatar,
-    isLocal: user.isLocal
+    bank: user.bank
   };
 
   const token = genToken(token_data);
@@ -17,8 +16,7 @@ const buildAuthResponse = user => {
     username: user.username,
     id: user.id,
     email: user.email,
-    avatar: user.avatar,
-    isLocal: user.isLocal
+    bank: user.bank
   };
 
   return {
@@ -33,14 +31,13 @@ usersRouter.get("/verify", async (req, res) => {
 
 usersRouter.post("/register", async (req, res, next) => {
   try {
-    const { username, email, password, avatar, isLocal } = req.body;
+    const { username, email, password, bank } = req.body;
     const pw_digest = await hash(password);
 
     const user = await User.create({
       username,
       email,
-      isLocal,
-      avatar,
+      bank,
       password_digest: pw_digest
     });
     const respData = buildAuthResponse(user);
@@ -89,14 +86,24 @@ usersRouter.put("/:id/edit", async (req, res, next) => {
   }
 });
 
-// favorite station
-usersRouter.get('/:id/favorites', async (req, res, next) => {
+// get user transactions
+usersRouter.get("/:id/transactions", async (req, res, next) => {
   try {
     const user = await User.findByPk(req.params.id);
-    const favorite = await user.getStations();
-    res.json(favorite)
+    const transactions = await user.getTransactions();
+    res.json(transactions);
   } catch (e) {
-    next(e)
+    next(e);
+  }
+});
+
+usersRouter.get("/:id/tickers", async (req, res, next) => {
+  try {
+    const user = await User.findByPk(req.params.id);
+    const tickers = await user.getTickers();
+    res.json(tickers);
+  } catch (e) {
+    next(e);
   }
 });
 

@@ -2,7 +2,7 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 const { User } = require("./models");
 const SALT = 11;
-const TOKENKEY = "spicy password";
+const TOKENKEY = "a new spicy password";
 
 // encrypts password on register
 const hash = async password => {
