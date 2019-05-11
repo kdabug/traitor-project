@@ -12,6 +12,7 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 
 app.use("/users", usersRouter);
+app.use("/tickers", tickersRouter);
 
 app.use((err, req, res, next) => {
   console.log(err);
