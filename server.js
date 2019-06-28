@@ -3,7 +3,7 @@ const express = require("express");
 const logger = require("morgan");
 const cors = require("cors");
 const usersRouter = require("./routes/usersRouter");
-const stationsRouter = require("./routes/stationsRouter");
+const tickersRouter = require("./routes/tickersRouter");
 const PORT = process.env.PORT || 9000;
 const app = express();
 
