@@ -80,4 +80,4 @@ tickersRouter.delete("/:id/user/:user_id/delete", async (req, res, next) => {
   }
 });
 
-module.exports = stationsRouter;
+module.exports = tickersRouter;
