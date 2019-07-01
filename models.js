@@ -20,6 +20,8 @@ if (process.env.DATABASE_URL) {
     }
   });
 }
+
+//TABLES
 const User = sequelize.define("user", {
   first_name: Sequelize.STRING,
   last_name: Sequelize.STRING,

@@ -4,7 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "resetDb": "node resetDb.js && psql -d traitor_db -f seedUser.js",
+    "prodResetDb": "node resetDb.js && psql -d $DATABASE_URL -f seedUser.js",
+    "seed": "node seed.js",
+    "debug": "nodemon --inspect-brk server.js"
   },
   "author": "",
   "license": "ISC",
@@ -13,6 +19,7 @@
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "morgan": "^1.9.1",
+    "nodemon": "^1.19.1",
     "pg": "^7.10.0",
     "react-redux": "^7.0.3",
     "redux": "^4.0.1",
