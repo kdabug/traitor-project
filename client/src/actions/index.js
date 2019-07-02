@@ -3,9 +3,14 @@ import {
   APP_INITIAL_DATA_FETCH,
   APP_UPDATE_NAME_AND_VALUE,
   APP_RESET_USER_INPUT,
+  USER_LOGIN,
+  USER_LOGOUT,
+  USER_EDIT,
+  USER_REGISTER,
   QUERY_BAR_FILTER_OPTIONS,
   QUERY_BAR_UPDATE_TICKER,
   QUERY_BAR_REMOVE_OPTIONS,
+  CHEST_INITIAL_DATA_FETCH,
   STOCK_DETAIL_FETCH_TICKER_INFO,
   PLANK_FETCH_TICKER_LIST,
   STOCK_DETAIL_TOGGLE_SHOW_PEERS,
@@ -22,6 +27,17 @@ import {
   fetchStockLists,
   fetchHistoricalPrices
 } from "../services/stocks";
+import {
+  editUser,
+  fetchUserBank,
+  fetchTickerData,
+  createNewUser,
+  loginUser,
+  createNewComment,
+  createFavoriteTicker,
+  deleteFavoriteTicker,
+  getUserFavorites
+} from "../services/usersHelpers";
 import {
   getTickerIndex,
   getFilteredOptions,
@@ -138,5 +154,91 @@ export const compassHistoryDataFetch = ticker => {
       chartData
     };
     return dispatch({ type: COMPASS_HISTORY_DATA_FETCH, payload });
+  };
+};
+
+//CHEST ACTIONS
+export const chestInitialDataFetch = () => {
+  return async dispatch => {
+    if (loggedIn) {
+      const userInfo = await fetchUserBank();
+      const payload = {
+        userInfo: userInfo
+      };
+    } else {
+      payload = {
+        userInfo: "no user info"
+      };
+    }
+    return dispatch({ type: CHEST_INITIAL_DATA_FETCH, payload });
+  };
+};
+
+//USER ACTIONS
+//LOGIN
+export const loginUser = () => {
+  return async dispatch => {
+    if (loggedIn) {
+      const userInfo = await fetchUserBank();
+      const payload = {
+        userInfo: userInfo
+      };
+    } else {
+      payload = {
+        userInfo: "no user info"
+      };
+    }
+    return dispatch({ type: USER_LOGIN, payload });
+  };
+};
+
+//LOGOUT
+export const logoutUser = () => {
+  return async dispatch => {
+    if (loggedIn) {
+      const userInfo = await fetchUserBank();
+      const payload = {
+        userInfo: userInfo
+      };
+    } else {
+      payload = {
+        userInfo: "no user info"
+      };
+    }
+    return dispatch({ type: USER_LOGOUT, payload });
+  };
+};
+
+//EDIT
+export const editUser = () => {
+  return async dispatch => {
+    if (loggedIn) {
+      const userInfo = await fetchUserBank();
+      const payload = {
+        userInfo: userInfo
+      };
+    } else {
+      payload = {
+        userInfo: "no user info"
+      };
+    }
+    return dispatch({ type: USER_EDIT, payload });
+  };
+};
+
+//REGISTER
+export const registerUser = () => {
+  return async dispatch => {
+    if (loggedIn) {
+      const userInfo = await fetchUserBank();
+      const payload = {
+        userInfo: userInfo
+      };
+    } else {
+      payload = {
+        userInfo: "no user info"
+      };
+    }
+    return dispatch({ type: USER_REGISTER, payload });
   };
 };

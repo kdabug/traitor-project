@@ -5,6 +5,11 @@ import {
   QUERY_BAR_FILTER_OPTIONS,
   QUERY_BAR_UPDATE_TICKER,
   QUERY_BAR_REMOVE_OPTIONS,
+  USER_LOGIN,
+  USER_LOGOUT,
+  USER_REGISTER,
+  USER_EDIT,
+  CHEST_INITIAL_DATA_FETCH,
   STOCK_DETAIL_FETCH_TICKER_INFO,
   PLANK_FETCH_TICKER_LIST,
   STOCK_DETAIL_TOGGLE_SHOW_PEERS,
@@ -24,8 +29,8 @@ const initialState = {
 
   currentBounty: "",
   currentInventory: [
-    { name: "Apple", ticker: "AAPL", amount: "2" },
-    { name: "Apple", ticker: "AAPL", amount: "2" }
+    // { name: "Apple", ticker: "AAPL", amount: "2" },
+    // { name: "Apple", ticker: "AAPL", amount: "2" }
   ],
   userNumberInput: "",
   transactionHistory: [],
@@ -84,6 +89,9 @@ function appReducer(state = initialState, action) {
     case QUERY_BAR_REMOVE_OPTIONS: {
       state = { ...state, ...action.payload };
     }
+    case CHEST_INITIAL_DATA_FETCH: {
+      state = { ...state, ...action.payload };
+    }
     case COMPASS_HISTORY_DATA_FETCH: {
       state = { ...state, ...action.payload };
     }
@@ -95,6 +103,18 @@ function appReducer(state = initialState, action) {
     }
     case STOCK_DETAIL_TOGGLE_SHOW_PEERS: {
       state = { ...state, stockDetailShowPeers: !state.stockDetailShowPeers };
+    }
+    case USER_LOGIN: {
+      state = { ...state, ...action.payload };
+    }
+    case USER_EDIT: {
+      state = { ...state, ...action.payload };
+    }
+    case USER_REGISTER: {
+      state = { ...state, ...action.payload };
+    }
+    case USER_LOGOUT: {
+      state = { ...state, ...action.payload };
     }
   }
   return state;
