@@ -1,16 +1,16 @@
 import React, { Component } from "react";
 import "../styles/App.css";
-import Footer from "./Footer";
+import Footer from "./components/Footer";
 import { Route, Link, withRouter } from "react-router-dom";
-import Welcome from "../containers/Welcome";
-import Chest from "../containers/Chest";
-import Plank from "../containers/Plank";
-import Profile from "../containers/Profile";
-import Records from "../containers/Records";
-import StockDetails from "../containers/StockDetail";
-import Compass from "../containers/Compass";
+import Welcome from "./containers/Welcome";
+import Chest from "./containers/Chest";
+import Plank from "./containers/Plank";
+import Profile from "./containers/Profile";
+import Records from "./containers/Records";
+import StockDetails from "./containers/StockDetail";
+import Compass from "./containers/Compass";
 import { connect } from "react-redux";
-import { appInitialDataFetch } from "../actions";
+import { appInitialDataFetch } from "./actions";
 
 class App extends Component {
   constructor() {

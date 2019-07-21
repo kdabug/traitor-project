@@ -27,51 +27,42 @@ const loginUser = async user => {
   return respData;
 };
 
-const fetchStations = async () => {
+const fetchUserBank = async () => {
   const respData = await api.get(`/stations`);
   return respData;
 };
-const fetchStationData = async station => {
+
+const fetchTickerData = async station => {
   console.log("this is fetchStationData station", station);
   const respData = await api.get(`/stations/${station}`);
   return respData.data;
 };
-const fetchStationComments = async station => {
-  console.log("this is fetchStationData station", station);
-  const respData = await api.get(`/stations/${station}/comments`);
-  return respData.data;
-};
-const createNewComment = async (id, Comment) => {
-  const respData = await api.post(`/stations/${id}/comments/new`, Comment);
-  return respData;
-};
 
-const favoriteStation = async (id, user_id) => {
+const createFavoriteTicker = async (id, user_id) => {
   console.log(id, user_id);
   const resp = await api.post(`/stations/${id}/user/${user_id}/add`);
   return resp.data;
 };
 
-const deleteFavoriteStation = async (id, user_id) => {
+const deleteFavoriteTicker = async (id, user_id) => {
   console.log(id, user_id);
   const resp = await api.delete(`/stations/${id}/user/${user_id}/delete`);
   return resp.data;
 };
 
-const getUserFavorite = async id => {
+const getUserFavorites = async id => {
   const resp = await api.get(`/users/${id}/favorites`);
   return resp.data;
 };
 
 export {
-  fetchStationComments,
   editUser,
-  fetchStations,
-  fetchStationData,
+  fetchUserBank,
+  fetchTickerData,
   createNewUser,
   loginUser,
   createNewComment,
-  favoriteStation,
-  deleteFavoriteStation,
-  getUserFavorite
+  createFavoriteTicker,
+  deleteFavoriteTicker,
+  getUserFavorites
 };
