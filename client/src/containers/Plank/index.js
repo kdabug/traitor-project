@@ -1,11 +1,11 @@
 import React, { Component } from "react";
-import RenderStockList from "./RenderStockList";
-import Nav from "./Nav";
+import RenderStockList from "../../components/RenderStockList";
+import Nav from "../../components/Nav";
 import { Route, Link, withRouter } from "react-router-dom";
-import MarketTimer from "./MarketTimer";
+// import MarketTimer from "./MarketTimer";
 import { connect } from "react-redux";
-import { appUpdateNameAndValue, plankFetchTickerList } from "../actions";
-import QueryBar from "./QueryBar";
+import { appUpdateNameAndValue, plankFetchTickerList } from "./../../actions";
+import QueryBar from "../../components/QueryBar";
 //TODO: fix MarketTimer before final deployment
 //TODO: starboard side - favorites instead of profile and current user
 class Plank extends Component {

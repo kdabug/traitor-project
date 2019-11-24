@@ -1,7 +1,7 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
-import ChooseBounty from "./ChooseBounty";
-import Form from "./QueryBar";
+import Nav from "../../components/Nav";
+// import ChooseBounty from "./../ChooseBounty";
+import Form from "../../components/QueryBar";
 import { connect } from "react-redux";
 import { Route, Link, withRouter } from "react-router-dom";
 //TODO add websocket (socket.id) for DEEP Official Price for saved stocks.
@@ -28,12 +28,12 @@ class Chest extends Component {
           <h2>yer treasure chest</h2>
         </div>
         <div className="chest-currents-display">
-          <ChooseBounty
+          {/* <ChooseBounty
             currentBounty={this.props.currentBounty}
             onChange={this.props.onChange}
             onSubmit={this.props.onSubmit}
             userNumberInput={this.props.userNumberInput}
-          />
+          /> */}
 
           {/* <h2>Yer Bounty: </h2> */}
           <Form

@@ -1,12 +1,12 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
+import Nav from "../../components/Nav";
 import { Route, Link, withRouter } from "react-router-dom"; //import Tooltip from "@material-ui/core/Tooltip";
 import ReactChartkick, { LineChart, PieChart } from "react-chartkick";
 import Chart from "chart.js";
 import { connect } from "react-redux";
-import QueryBar from "./QueryBar";
-import { createTickerVal } from "../utilities";
-import { compassHistoryDataFetch } from "../actions";
+import QueryBar from "../../components/QueryBar";
+import { createTickerVal } from "./../../utilities";
+import { compassHistoryDataFetch } from "./../../actions";
 ReactChartkick.addAdapter(Chart);
 
 class Compass extends Component {
