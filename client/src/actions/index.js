@@ -159,10 +159,12 @@ export const compassHistoryDataFetch = ticker => {
 
 //CHEST ACTIONS
 export const chestInitialDataFetch = () => {
-  return async dispatch => {
-    if (loggedIn) {
-      const userInfo = await fetchUserBank();
-      const payload = {
+  return async (dispatch, getState) => {
+    const { currentUser } = getState().appReducer;
+    let payload;
+    if (currentUser) {
+      const userInfo = await fetchUserBank(currentUser.id);
+      payload = {
         userInfo: userInfo
       };
     } else {
@@ -176,11 +178,13 @@ export const chestInitialDataFetch = () => {
 
 //USER ACTIONS
 //LOGIN
-export const loginUser = () => {
-  return async dispatch => {
-    if (loggedIn) {
+export const loginNewUser = () => {
+  return async (dispatch, getState) => {
+    const { currentUser } = getState().appReducer;
+    let payload;
+    if (currentUser) {
       const userInfo = await fetchUserBank();
-      const payload = {
+      payload = {
         userInfo: userInfo
       };
     } else {
@@ -194,10 +198,12 @@ export const loginUser = () => {
 
 //LOGOUT
 export const logoutUser = () => {
-  return async dispatch => {
-    if (loggedIn) {
+  return async (dispatch, getState) => {
+    const { currentUser } = getState().appReducer;
+    let payload;
+    if (currentUser) {
       const userInfo = await fetchUserBank();
-      const payload = {
+      payload = {
         userInfo: userInfo
       };
     } else {
@@ -205,16 +211,18 @@ export const logoutUser = () => {
         userInfo: "no user info"
       };
     }
-    return dispatch({ type: USER_LOGOUT, payload });
+    return dispatch({ type: USER_LOGIN, payload });
   };
 };
 
 //EDIT
-export const editUser = () => {
-  return async dispatch => {
-    if (loggedIn) {
+export const editCurrentUser = () => {
+  return async (dispatch, getState) => {
+    const { currentUser } = getState().appReducer;
+    let payload;
+    if (currentUser) {
       const userInfo = await fetchUserBank();
-      const payload = {
+      payload = {
         userInfo: userInfo
       };
     } else {
@@ -222,16 +230,18 @@ export const editUser = () => {
         userInfo: "no user info"
       };
     }
-    return dispatch({ type: USER_EDIT, payload });
+    return dispatch({ type: USER_LOGIN, payload });
   };
 };
 
 //REGISTER
 export const registerUser = () => {
-  return async dispatch => {
-    if (loggedIn) {
+  return async (dispatch, getState) => {
+    const { currentUser } = getState().appReducer;
+    let payload;
+    if (currentUser) {
       const userInfo = await fetchUserBank();
-      const payload = {
+      payload = {
         userInfo: userInfo
       };
     } else {
@@ -239,6 +249,6 @@ export const registerUser = () => {
         userInfo: "no user info"
       };
     }
-    return dispatch({ type: USER_REGISTER, payload });
+    return dispatch({ type: USER_LOGIN, payload });
   };
 };

@@ -1,12 +1,12 @@
 import axios from "axios";
-// const BASE_URL = "https://tranquil-ravine-67605.herokuapp.com";
+const BASE_URL = "";
 
-// const api = axios.create({
-//   baseURL: "https://tranquil-ravine-67605.herokuapp.com",
-//   headers: {
-//     authorization: `Bearer ${localStorage.getItem("jwt")}`
-//   }
-// });
+const api = axios.create({
+  baseURL: BASE_URL,
+  headers: {
+    authorization: `Bearer ${localStorage.getItem("jwt")}`
+  }
+});
 
 const createNewUser = async user => {
   const respData = await axios.post(`${BASE_URL}/users/register`, user);
@@ -28,25 +28,25 @@ const loginUser = async user => {
 };
 
 const fetchUserBank = async () => {
-  const respData = await api.get(`/stations`);
+  const respData = await api.get(`/tickers`);
   return respData;
 };
 
-const fetchTickerData = async station => {
-  console.log("this is fetchStationData station", station);
-  const respData = await api.get(`/stations/${station}`);
+const fetchTickerData = async ticker => {
+  console.log("this is fetchTickeerData station", ticker);
+  const respData = await api.get(`/tickers/${ticker}`);
   return respData.data;
 };
 
 const createFavoriteTicker = async (id, user_id) => {
   console.log(id, user_id);
-  const resp = await api.post(`/stations/${id}/user/${user_id}/add`);
+  const resp = await api.post(`/tickers/${id}/user/${user_id}/add`);
   return resp.data;
 };
 
 const deleteFavoriteTicker = async (id, user_id) => {
   console.log(id, user_id);
-  const resp = await api.delete(`/stations/${id}/user/${user_id}/delete`);
+  const resp = await api.delete(`/tickers/${id}/user/${user_id}/delete`);
   return resp.data;
 };
 
@@ -61,7 +61,6 @@ export {
   fetchTickerData,
   createNewUser,
   loginUser,
-  createNewComment,
   createFavoriteTicker,
   deleteFavoriteTicker,
   getUserFavorites

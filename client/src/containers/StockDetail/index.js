@@ -1,10 +1,10 @@
 import React, { Component } from "react";
-import Nav from "./Nav";
+import Nav from "../../components/Nav";
 import { Route, Link, withRouter } from "react-router-dom";
 import {
   stockDetailToggleShowPeers,
   stockDetailFetchTickerInfo
-} from "../actions";
+} from "./../../actions";
 import { connect } from "react-redux";
 
 class StockDetail extends Component {
