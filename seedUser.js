@@ -1,10 +1,11 @@
-const { Users } = require("./models");
+const { User } = require("./models");
 
-async function seed() {
+const seedDb = async () => {
+  console.log(User);
   try {
-    await Users.destroy({ where: {} });
+    await User.destroy({ where: {} });
 
-    const users = await Users.bulkCreate([
+    await User.bulkCreate([
       {
         first_name: "Mikayda",
         last_name: "Mills",
@@ -12,12 +13,29 @@ async function seed() {
         username: "kdabug",
         password_digest: "scooby",
         bank: 500
+      },
+      {
+        first_name: "Dallin",
+        last_name: "Parker",
+        email: "dallin.hi@gmail.com",
+        username: "dpark",
+        password_digest: "scooby",
+        bank: 500
       }
     ]);
-  } catch (e) {
-    console.error(e);
+  } catch (err) {
+    console.error(err);
   }
-  process.exit();
-}
+};
 
-seed();
+const run = async () => {
+  try {
+    await seedDb();
+  } catch (err) {
+    console.error(err);
+  } finally {
+    await process.exit();
+  }
+};
+
+run();

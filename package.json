@@ -9,13 +9,15 @@
     "dev": "nodemon server.js",
     "resetDb": "node resetDb.js && psql -d traitor_db -f seedUser.js",
     "prodResetDb": "node resetDb.js && psql -d $DATABASE_URL -f seedUser.js",
-    "seed": "node seed.js",
-    "debug": "nodemon --inspect-brk server.js"
+    "seed": "node seedUser.js",
+    "debug": "nodemon --inspect-brk server.js",
+    "db:init": "dropdb --if-exists traitor_db && createdb traitor_db"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "cors": "^2.8.5",
     "dotenv": "^8.0.0",
     "express": "^4.16.4",
     "morgan": "^1.9.1",

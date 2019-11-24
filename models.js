@@ -64,22 +64,16 @@ const User = sequelize.define("user", {
   bank: Sequelize.INTEGER
 });
 
-const Ticker = sequelize.define(
-  "ticker",
-  {
-    name: Sequelize.STRING,
-    geolocation: Sequelize.STRING,
-    lines: Sequelize.STRING,
-    details: Sequelize.STRING
-  },
-  {
-    timestamps: false
-  }
-);
+const Ticker = sequelize.define("ticker", {
+  symbol: Sequelize.STRING,
+  amount_in_circulation: Sequelize.INTEGER
+});
 
 const Transaction = sequelize.define("transaction", {
   number: Sequelize.INTEGER,
-  price: Sequelize.INTEGER
+  price: Sequelize.INTEGER,
+  action: Sequelize.STRING,
+  total: Sequelize.INTEGER
 });
 
 // one to many
@@ -89,8 +83,8 @@ User.hasMany(Transaction);
 Ticker.hasMany(Transaction);
 
 // many to many
-User.belongsToMany(Ticker, { through: "transaction_history" });
-Station.belongsToMany(User, { through: "transaction_history" });
+User.belongsToMany(Ticker, { through: "user_tickers" });
+Ticker.belongsToMany(User, { through: "user_tickers" });
 
 module.exports = {
   User,

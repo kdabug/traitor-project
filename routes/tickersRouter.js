@@ -43,9 +43,9 @@ tickersRouter.get("/:id/transactions", async (req, res) => {
 // post a transaction to a ticker
 tickersRouter.post("/:id/transactions/new", async (req, res) => {
   try {
-    const station = await Ticker.findByPk(req.params.id);
-    const newComment = await station.createComment(req.body);
-    res.json(newComment);
+    const ticker = await Ticker.findByPk(req.params.id);
+    const newTransaction = await ticker.createTransaction(req.body);
+    res.json(newTransaction);
   } catch (e) {
     console.error({ error: e });
   }
@@ -56,7 +56,7 @@ tickersRouter.post("/:id/user/:user_id/add", async (req, res, next) => {
     const ticker = await Ticker.findByPk(req.params.id);
     const newUser = await User.findByPk(req.params.user_id);
     await ticker.addUser(newUser);
-    res.json({ ...station.get(), users: newUser });
+    res.json({ ...ticker.get(), users: newUser });
   } catch (e) {
     next(e);
   }
