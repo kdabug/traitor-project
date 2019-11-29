@@ -1,16 +1,18 @@
 # PROJECT TRAITOR README
 
-**name**
+## **name**
 traitor
 note: post-mvp items are indicated with an (\*) and might not be available at launch
 
-**link**
+**WIP**
+
+## **link**
 https://gallant-haibt-6c9b60.netlify.com/
 
-**images**
+## **images**
 see proposal images for wireframe and component heirarchy
 
-**description and userstory**
+## **description and userstory**
 
 Traitor shows the user information about the stock market, focusing on specific, current stock prices.
 
@@ -26,7 +28,7 @@ THE COMPASS: Allows you to see the past trends of certain stock (or of the marke
 
 THE ARREST RECORDS\*: Georgette heads here to see her past transactions. She sees that she bough a stock earlier that she is already tired of. She sells it. She sees in her record that she earned a profit or took a loss on that sale.
 
-**code snippet**
+## **code snippet**
 code that handles updating and getting to compass(charts) from other components
 
 ```
@@ -106,21 +108,21 @@ constructor(props) {
   }
 ```
 
-**lessons learned**
+## **lessons learned**
 This project relied on router and helped me gain a better understanding of app heirarchy. It was important to pass the correct props and match the correct params in any given component. In the end, I would re-structure this app and hone in on which props I could take out of app state and move into the state of relevant components.
 
 Two other lessons learned in this project include: handling more advanced styling with web modals/imported style-sheets and understanding lifecycle methods. Some of my components needed to rerender with ticker changes, and I needed to learn how to utilize withRouter from react-dom and componentDid/Should/WillMount in order to navigate my cite and history correctly.
 
-**major problems & solutions**
+## **major problems & solutions**
 -Legally: this can't be a secondary market. no real money. no betting against the stocks to fail. Solution: this needs to focus on skill. You recruit and are rewarded for crafting a team of good players. People can be good at many things, reading the stock market included.
 -storage: how to store current user data (transaction history) through refreshing and reloading a single page app.
 -server: this would be nice if I could have more users now, but post-mvp.
 -components passed through and up multiple levels, using the same component in different places?
 
-**MVP**
+## **MVP**
 A simple app that allows you to see general information and the daily chart of any given stock.
 
-**component library**
+## **component library**
 List of Components and their functions:
 
 - Welcome: Class - mainscreen - configures starting screen. has instructions and start trading [button] button
@@ -139,7 +141,7 @@ List of Components and their functions:
 - PirateBoard\*: highest weekly, monthly, daily earning pirates (and contact info)
 - Compass: Class - mainscreen - uses api and graph [graph] component to show the details of past trends for a specific stock (or the market in general\*)
 
-**API**
+## **API**
 IEX Api - for stock data;
 Pirate translation\* api (for game instructions....we sent pirates and traitors of the country....to the stocks...get it... get it...)
 
