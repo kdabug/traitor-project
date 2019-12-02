@@ -21,6 +21,7 @@ class App extends Component {
   }
 
   render() {
+    console.log("passing state as props", this.props);
     return (
       <div className="App">
         <main>
@@ -76,8 +77,8 @@ class App extends Component {
     );
   }
 }
-const mapStateToProps = state => {
-  console.log("MAP STATE TO PROPS - STATE: ", state);
-  return { state };
+const mapStateToProps = ({ appReducer, fakeReducer }, props) => {
+  console.log("MAP STATE TO PROPS - STATE: ", fakeReducer, props);
+  return { name: "mikayda", appReducer, fakeReducer };
 };
 export default withRouter(connect(mapStateToProps)(App));

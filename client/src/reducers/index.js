@@ -7,7 +7,8 @@ import { combineReducers } from "redux";
 import appReducer from "./appReducer";
 
 const allReducers = {
-  appReducer
+  appReducer,
+  fakeReducer: { name: "Dallin" }
 };
 
 export const combinedReducers = combineReducers(allReducers);
